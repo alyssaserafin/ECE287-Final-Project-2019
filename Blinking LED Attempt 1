@@ -1,0 +1,69 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.STD_LOGIC_ARITH.all;                                
+use IEEE.STD_LOGIC_UNSIGNED.all;
+use IEEE.numeric_std.all;
+
+entity ECE287Project1clocktest is
+port (CLK_50MHz: IN std_logic;
+LED1, LED2, LED3, LED4: OUT std_logic);
+end ECE287Project1clocktest;
+
+architecture behavior of ECE287Project1clocktest is
+
+signal counter : std_logic_vector(0 to 25);
+signal randhex : std_logic_vector(3 downto 0);
+signal timer : std_logic_vector(3 downto 0);
+
+begin
+Prescaler: process (CLK_50MHz)
+begin
+
+if CLK_50MHz' event and CLK_50MHz = '1' then
+counter <= counter + 1;
+if timer < "1111" then
+timer <= timer+1;
+else
+timer <= (others => '0');
+end if;
+end if;
+
+if counter >= "10111110101111000010000000" then
+counter<= "00000000000000000000000000";
+end if;
+
+if counter >= "01011111010111100001000000" then
+randhex <= timer;
+if randhex < "0101" then
+LED1 <= '1';
+LED2 <= '0';
+LED3 <= '0';
+--ledpat(n to n+3) <= "0000";
+
+
+elsif randhex < "1010" then
+LED1 <= '0';
+LED2 <= '1';
+LED3 <= '0';
+--ledpat(n to n+3) <= "0010";
+
+
+else
+LED1 <= '0';
+LED2 <= '0';
+LED3 <= '1';
+--ledpat(n to n+3) <= "100";
+
+end if;
+
+else
+LED1 <= '0';
+LED2 <= '0';
+LED3 <= '0';
+LED4 <= '0';
+
+end if;
+
+end process prescaler;
+
+end behavior;
