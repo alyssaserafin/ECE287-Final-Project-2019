@@ -1,0 +1,500 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity ECE287Project3 is
+    Generic ( CLK_BIT : INTEGER := 4);
+    Port ( CLK_50 : in  STD_LOGIC;
+           LED0, LED1, LED2, LED3, LED4, LED5, LED6, LED7: out  STD_LOGIC);
+end ECE287Project3;
+
+architecture Behavioral of ECE287Project3 is
+signal clk_div : STD_LOGIC_VECTOR (CLK_BIT downto 0);
+signal count   : STD_LOGIC_VECTOR (4 downto 0);
+signal counter : STD_LOGIC_VECTOR (0 to 25);
+signal CLK : STD_LOGIC;
+shared variable loopcount : integer;
+signal levelnum : std_logic_vector(0 to 3);
+--shared variable n : integer range 0 to 8;
+--signal pattern : std_logic_vector(0 to 255);
+--signal switchpattern : std_logic_vector(0 to 255);
+--signal ledpat: std_logic_vector(0 to 7);
+--signal swpat: std_logic_vector(0 to 7);
+begin
+
+process (CLK_50)
+begin
+
+if (CLK_50'Event and CLK_50 = '1') then
+counter <= counter + 1;
+end if;
+
+if counter >= "10111110101111000010000000" then --50e6
+counter <= "00000000000000000000000000";
+end if;
+
+if counter >= "10100000001111000010000000" then
+count <= count + 1;
+end if;
+
+end process;
+
+
+    -- LED display
+    process (count)
+    begin
+        -- display different LED pattern for each count value
+ case levelnum is
+when "0000" => case count is
+when "00000" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0';
+
+
+when "00001" => LED0 <= '0'; LED1 <= '1'; LED2 <= '0';
+
+
+when "00010" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0';
+
+when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1';
+
+end case;
+levelnum <= levelnum +1;
+
+when "0001" => case count is
+when "00000" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '0';
+
+
+when "00001" => LED0 <= '0'; LED1 <= '1'; LED2 <= '0'; LED3 <= '0';
+
+
+when "00010" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1';
+
+
+when "00011" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1';
+
+when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1'; LED3 <= '1';
+
+end case;
+levelnum <= levelnum +1;
+
+
+when "0010" => case count is
+when "00000" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '0'; LED4 <= '0';
+
+
+when "00001" => LED0 <= '0'; LED1 <= '1'; LED2 <= '0'; LED3 <= '0'; LED4 <= '0';
+
+
+when "00010" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';
+
+
+when "00011" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0';
+
+when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1'; LED3 <= '1'; LED4 <= '1';
+
+end case;
+levelnum <= levelnum +1;
+
+
+when "0011" => case count is
+when "00000" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '0';
+
+
+when "00001" => LED0 <= '0'; LED1 <= '1'; LED2 <= '0'; LED3 <= '0'; LED4 <= '0';LED5 <= '0';
+
+
+when "00010" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '1';
+
+
+when "00011" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0';LED5 <= '1';
+
+
+when "00100" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0'; LED5 <= '1';
+
+
+when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1'; LED3 <= '1'; LED4 <= '1'; LED5 <= '1';
+
+end case;
+levelnum <= levelnum +1;
+
+when "0100" => case count is
+when "00000" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '0'; LED6 <= '0';
+
+
+when "00001" => LED0 <= '0'; LED1 <= '1'; LED2 <= '0'; LED3 <= '0'; LED4 <= '0';LED5 <= '0'; LED6 <= '0';
+ 
+
+when "00010" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '1'; LED6 <= '0';
+
+
+when "00011" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0';LED5 <= '1'; LED6 <= '0';
+
+
+when "00100" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0'; LED5 <= '1'; LED6 <= '1';
+
+when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1'; LED3 <= '1'; LED4 <= '1'; LED5 <= '1'; LED6 <= '1';
+end case;
+levelnum <= levelnum +1;
+
+when "0101" => case count is
+when "00000" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '0'; LED6 <= '0'; LED7 <= '1';
+
+
+when "00001" => LED0 <= '0'; LED1 <= '1'; LED2 <= '0'; LED3 <= '0'; LED4 <= '0';LED5 <= '0'; LED6 <= '0'; LED7 <= '1';
+ 
+
+when "00010" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '1'; LED6 <= '0'; LED7 <= '1';
+
+
+when "00011" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0';LED5 <= '1'; LED6 <= '0'; LED7 <= '1';
+
+
+when "00100" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0'; LED5 <= '1'; LED6 <= '1'; LED7 <= '1';
+
+when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1'; LED3 <= '1'; LED4 <= '1'; LED5 <= '1'; LED6 <= '1'; LED7 <= '1';
+
+end case;
+levelnum <= levelnum +1;
+
+-- when "0110" => case count is
+-- when "00000" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '0'; LED6 <= '0'; LED7 <= '1'; LED8 <= '1';
+--
+--
+-- when "00001" => LED0 <= '0'; LED1 <= '1'; LED2 <= '0'; LED3 <= '0'; LED4 <= '0';LED5 <= '0'; LED6 <= '0'; LED7 <= '1'; LED8 <= '1';
+--
+--
+-- when "00010" => LED0 <= '0'; LED1 <= '0'; LED2 <= '0'; LED3 <= '1'; LED4 <= '0';LED5 <= '1'; LED6 <= '0'; LED7 <= '1'; LED8 <= '1';
+--
+--
+-- when "00011" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0';LED5 <= '1'; LED6 <= '0'; LED7 <= '1'; LED8 <= '1';
+--
+--
+-- when "00100" => LED0 <= '0'; LED1 <= '0'; LED2 <= '1'; LED3 <= '1'; LED4 <= '0'; LED5 <= '1'; LED6 <= '1'; LED7 <= '1'; LED8 <= '1';
+--
+-- when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1'; LED3 <= '1'; LED4 <= '1'; LED5 <= '1'; LED6 <= '1'; LED7 <= '1'; LED8 <= '1';
+-- end case;
+when others => LED0 <= '1'; LED1 <= '1'; LED2 <= '1'; LED3 <= '1'; LED4 <= '1';LED5 <= '1'; LED6 <= '1'; LED7 <= '1';
+-- when "00100" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '0';
+--
+--
+--            when "00101" =>
+--LED0 <= '1';
+--LED1 <= '0';
+--LED2 <= '0';
+--
+--
+--            when "00110" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '0';
+--LED3 <= '0';
+--LED4 <= '0';
+--LED5 <= '0';
+--LED6 <= '1';
+--LED7 <= '0';
+--
+--            when "00111" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '0';
+--LED3 <= '1';
+--LED4 <= '0';
+--LED5 <= '0';
+--LED6 <= '0';
+--LED7 <= '0';
+--
+--            when "01000" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '0';
+--LED3 <= '0';
+--LED4 <= '0';
+--LED5 <= '0';
+--LED6 <= '0';
+--LED7 <= '1';
+--
+--            when "01001" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '0';
+--LED3 <= '0';
+--LED4 <= '1';
+--LED5 <= '0';
+--LED6 <= '0';
+--LED7 <= '0';
+--
+--            when "01010" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '1';
+--LED3 <= '0';
+--LED4 <= '0';
+--LED5 <= '0';
+--LED6 <= '0';
+--LED7 <= '0';
+--
+--            when "01011" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '0';
+--LED3 <= '1';
+--LED4 <= '0';
+--LED5 <= '0';
+--LED6 <= '0';
+--LED7 <= '0';
+--
+--            when "01100" =>
+--LED0 <= '0';
+--LED1 <= '0';
+--LED2 <= '1';
+--LED3 <= '0';
+--LED4 <= '0';
+--LED5 <= '0';
+--LED6 <= '0';
+--LED7 <= '0';
+--
+--when others =>
+--LED0 <= '1';
+--LED1 <= '1';
+--LED2 <= '1';
+--LED3 <= '1';
+--LED4 <= '1';
+--LED5 <= '1';
+--LED6 <= '1';
+--LED7 <= '1';
+
+
+
+
+--            when "01101" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '1';
+-- LED7 <= '0';
+--
+--            when "01110" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '1';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "01111" =>
+-- LED0 <= '1';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "10000" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '1';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "10001" =>
+-- LED0 <= '0';
+-- LED1 <= '1';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "10010" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '1';
+-- LED7 <= '0';
+--
+--            when "10011" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '1';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "10100" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '1';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "10101" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '1';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "10110" =>
+-- LED0 <= '1';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "10111" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '1';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "11000" =>
+-- LED0 <= '1';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "11001" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '1';
+-- LED7 <= '0';
+--
+--            when "11010" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '1';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+--            when "11011" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '1';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+-- when "11100" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '1';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+-- when "11101" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '1';
+-- LED5 <= '0';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+-- when "11110" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '1';
+-- LED6 <= '0';
+-- LED7 <= '0';
+--
+-- when "11111" =>
+-- LED0 <= '0';
+-- LED1 <= '0';
+-- LED2 <= '0';
+-- LED3 <= '0';
+-- LED4 <= '0';
+-- LED5 <= '0';
+-- LED6 <= '1';
+-- LED7 <= '0';
+
+
+        end case;
+--pattern(n-2 to n) <= ledpat;
+--n := n+3;
+
+-- for switchcount in 0 to 3 loop
+-- if sw1 = '1' then
+-- swpat <= "10000000";
+
+-- elsif sw2 = '1' then
+-- swpat <= "01000000";
+--
+-- elsif sw3 = '1' then
+-- swpat <= "00100000";
+-- end if;
+-- elsif sw4 = '1' then
+-- swpat <= "00010000";
+-- end if;
+-- elsif sw5 = '1' then
+-- swpat <= "00001000";
+-- end if;
+-- elsif sw6 = '1' then
+-- swpat <= "00000100";
+-- end if;
+-- elsif sw7 = '1' then
+-- swpat <= "00000010";
+-- end if;
+-- elsif sw8 = '1' then
+-- swpat <= "00000001";
+-- switchpattern(m-2 to m) <= swpat;
+-- m := m+3;
+-- end loop;
+--
+-- if pattern = switchpattern then
+
+--LEDG1 <= '1';
+-- end if;
+    end process;
+
+end Behavioral;
